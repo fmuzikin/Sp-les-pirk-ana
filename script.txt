@@ -1,0 +1,31 @@
+function calculatePurchase() {
+    const gamePrice = parseFloat(document.getElementById("game").value);
+    const platform = document.getElementById("platform").value;
+    const quantityInput = document.getElementById("quantity").value;
+    const resultDiv = document.getElementById("result");
+
+    if (quantityInput === "" || quantityInput <= 0) {
+        resultDiv.innerHTML = "Lūdzu ievadi korektu daudzumu!";
+        resultDiv.className = "error";
+        return;
+    }
+
+    const quantity = parseInt(quantityInput);
+
+    let total = gamePrice * quantity;
+    let discountMessage = "";
+
+    // Nosacījums: atlaide, ja vairāk nekā 2 spēles
+    if (quantity > 2) {
+        total *= 0.9; // 10% atlaide
+        discountMessage = "<br>🎉 Pielietota 10% atlaide par lielu pasūtījumu!";
+    }
+
+    resultDiv.innerHTML = `
+        Platforma: ${platform}
+        <br>Daudzums: ${quantity}
+        <br>Kopējā cena: ${total.toFixed(2)} €
+        ${discountMessage}
+    `;
+    resultDiv.className = "success";
+}

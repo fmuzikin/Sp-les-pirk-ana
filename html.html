@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <title>Spēles pirkšana</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- Информационный раздел -->
+<div class="header">
+    <div class="logo">🎮</div>
+    <h1>Spēles pirkšanas kalkulators</h1>
+    <p>
+        Šī mājaslapa ļauj izvēlēties spēli, platformu un daudzumu, un aprēķina kopējo pasūtījuma cenu.
+        Ja iegādājies vairāk nekā 2 spēles, tiek piemērota 10% atlaide.
+    </p>
+</div>
+
+<!-- Основной калькулятор -->
+<div class="main">
+    <div class="container">
+
+        <label for="game">Izvēlies spēli:</label>
+        <select id="game">
+            <option value="30">Cyberpunk 2077 - 30€</option>
+            <option value="50">Elden Ring - 50€</option>
+            <option value="40">FIFA 23 - 40€</option>
+        </select>
+
+        <label for="platform">Platforma:</label>
+        <select id="platform">
+            <option value="PC">PC</option>
+            <option value="PS5">PS5</option>
+            <option value="Xbox">Xbox</option>
+        </select>
+
+        <label for="quantity">Daudzums:</label>
+        <input type="number" id="quantity" placeholder="Ievadi daudzumu">
+
+        <button onclick="calculatePurchase()">Aprēķināt</button>
+
+        <div id="result"></div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <title>Spēles pirkšana</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #ff7f50, #ffb347);
+            margin: 0;
+        }
+
+        /* Информационный раздел */
+        .header {
+            background-color: white;
+            text-align: center;
+            padding: 30px 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .logo {
+            font-size: 50px;
+        }
+
+        .header h1 {
+            margin: 10px 0;
+        }
+
+        .header p {
+            max-width: 600px;
+            margin: 0 auto;
+            color: #555;
+        }
+
+        /* Основной калькулятор */
+        .main {
+            display: flex;
+            justify-content: center;
+            padding: 40px 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            width: 380px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #ff4500;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #e03e00;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Информационный раздел -->
+<div class="header">
+    <div class="logo">🎮</div>
+    <h1>Spēles pirkšanas kalkulators</h1>
+    <p>
+        Šī mājaslapa ļauj izvēlēties spēli, platformu un daudzumu, un aprēķina kopējo pasūtījuma cenu.
+        Ja iegādājies vairāk nekā 2 spēles, tiek piemērota 10% atlaide.
+    </p>
+</div>
+
+<!-- Основной калькулятор -->
+<div class="main">
+    <div class="container">
+
+        <label for="game">Izvēlies spēli:</label>
+        <select id="game">
+            <option value="30">Cyberpunk 2077 - 30€</option>
+            <option value="50">Elden Ring - 50€</option>
+            <option value="40">FIFA 23 - 40€</option>
+        </select>
+
+        <label for="platform">Platforma:</label>
+        <select id="platform">
+            <option value="PC">PC</option>
+            <option value="PS5">PS5</option>
+            <option value="Xbox">Xbox</option>
+        </select>
+
+        <label for="quantity">Daudzums:</label>
+        <input type="number" id="quantity" placeholder="Ievadi daudzumu">
+
+        <button onclick="calculatePurchase()">Aprēķināt</button>
+
+        <div id="result"></div>
+    </div>
+</div>
+
+<script>
+function calculatePurchase() {
+    const gamePrice = parseFloat(document.getElementById("game").value);
+    const platform = document.getElementById("platform").value;
+    const quantityInput = document.getElementById("quantity").value;
+    const resultDiv = document.getElementById("result");
+
+    // Валидация
+    if (quantityInput === "" || quantityInput <= 0) {
+        resultDiv.innerHTML = "Lūdzu ievadi korektu daudzumu!";
+        resultDiv.className = "error";
+        return;
+    }
+
+    const quantity = parseInt(quantityInput);
+    let total = gamePrice * quantity;
+    let discountMessage = "";
+
+    // Условие: скидка при покупке > 2 игр
+    if (quantity > 2) {
+        total *= 0.9; // 10% atlaide
+        discountMessage = "<br>🎉 Pielietota 10% atlaide par lielu pasūtījumu!";
+    }
+
+    resultDiv.innerHTML = `
+        Platforma: ${platform}
+        <br>Daudzums: ${quantity}
+        <br>Kopējā cena: ${total.toFixed(2)} €
+        ${discountMessage}
+    `;
+    resultDiv.className = "success";
+}
+</script>
+
+</body>
+</html>
